@@ -1,0 +1,76 @@
+---
+layout: false
+---
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>Content Manager</title>
+  <!-- Include the stylesheets from your site here -->
+  <link rel="stylesheet" href="//cms.netlify.com/assets/cms.css" />
+  <!-- Include a CMS specific stylesheet here -->
+
+  <base href="/admin/">
+  <link rel="stylesheet" href="/assets/css/skel.css">
+  <link rel="stylesheet" href="/assets/css/style.css">
+  <link rel="stylesheet" href="/assets/css/style-desktop.css">
+  <style>
+    .container {
+      width: auto;
+      max-width: 1200px;
+    }
+    body.ember-application .cms-list-entry {
+      background: #fff;
+    }
+  </style>
+</head>
+<body>
+  {% raw %}
+  <script type="application/x-yaml" id="cms-yaml-config">
+backend:
+  name: netlify-api
+  url: http://localhost:8080
+
+media_folder: "source/assets/images" # Folder where user uploaded files should go
+public_folder: "source"
+
+collections: # A list of collections the CMS should be able to edit
+  - name: "posts" # Used in routes, ie.: /admin/collections/:slug/edit
+    label: "Post" # Used in the UI, ie.: "New Post"
+    folder: "source/_posts" # The path to the folder where the documents are stored
+    sort: "date:desc"
+    create: true # Allow users to create new documents in this collection
+    fields: # The fields each document in this collection have
+      - {label: "Title", name: "title", widget: "string", tagname: "h1"}
+      - {label: "Banner", name: "banner", widget: "image", class: "image featured"}
+      - {label: "Short Description", name: "shortdesc", widget: "string"}
+      - {label: "Body", name: "body", widget: "markdown"}
+    meta: # Meta data fields. Just like fields, but without any preview element
+      - {label: "Publish Date", name: "date", widget: "datetime"}
+      - {label: "Categories", name: "categories", widget: "string"}
+      - {label: "Layout", name: "layout", widget: "hidden", default: "post"}
+  </script>
+  <script type="text/x-handlebars" data-template-name='cms/preview/posts'>
+    <div id="main-wrapper">
+        <div class="container">
+            <!--Content-->
+            <article class="box post">
+                {{#if entry.banner }}
+                {{cms-preview field='banner'}}
+                {{/if}}
+                <header>
+                    <h2>{{ entry.title }}</h2>
+                    <p>{{ entry.shortdesc}}</p>
+                </header>
+                {{cms-preview field='body'}}
+            </article>
+        </div>
+    </div>
+  </script>
+  {% endraw %}
+  <script src="//cms.netlify.com/assets/vendor.js"></script>
+  <script src="//localhost:4200/assets/cms.js"></script>
+</body>
+</html>
