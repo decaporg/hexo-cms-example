@@ -64,7 +64,7 @@ collections: # A list of collections the CMS should be able to edit
     files:
       - name: "characters"
         label: "Characters"
-        file: "_data/characters.yml"
+        file: "source/_data/characters.yml"
         fields:
           - label: "Characters"
             name: "list"
@@ -88,6 +88,22 @@ collections: # A list of collections the CMS should be able to edit
                 </header>
                 {{cms-preview field='body'}}
             </article>
+        </div>
+    </div>
+  </script>
+
+  <script type="text/x-handlebars" data-template-name='cms/preview/characters'>
+    <div id="main-wrapper">
+        <div class="container">
+            {{#cms-preview field="list" as |character| }}
+              <section class="box">
+                  <span class="image featured">{{cms-preview field="image" from=character}}</span>
+                  <header>
+                      <h3>{{character.name}}</h3>
+                  </header>
+                  <p>{{character.description}}</p>
+              </section>
+            {{/cms-preview}}
         </div>
     </div>
   </script>
