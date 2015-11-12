@@ -7,14 +7,14 @@
                     <h2>Characters</h2>
                 </header>
                 <div class="row">
-                <% for (character in site.data.characters) { %>
+                <% for (character in site.data.characters.list) { %>
                     <div class="4u">
                         <section class="box">
-                            <span class="image featured"><img src="<%- site.data.characters[character].image %>" alt="" /></span>
+                            <span class="image featured"><img src="<%- site.data.characters.list[character].image %>" alt="" /></span>
                             <header>
-                                <h3><%- site.data.characters[character].name %></h3>
+                                <h3><%- site.data.characters.list[character].name %></h3>
                             </header>
-                            <p><%- site.data.characters[character].description %></p>
+                            <p><%- site.data.characters.list[character].description %></p>
                         </section>
                     </div>
                 <% } %>
